@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import {
   Building2,
@@ -58,7 +59,7 @@ export function Sidebar() {
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed lg:relative z-50 h-screen bg-white border-r border-shortpoint-border-light transition-all duration-300",
+          "fixed lg:relative z-50 h-screen bg-white border-r border-shortpoint-border-light transition-all duration-300 flex flex-col",
           isCollapsed
             ? "-translate-x-full lg:translate-x-0 lg:w-16"
             : "w-[230px]"
@@ -67,14 +68,16 @@ export function Sidebar() {
         {/* Logo Section */}
         <div className="h-16 flex items-center justify-between px-4 border-b border-shortpoint-border-light">
           {!isCollapsed && (
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-shortpoint-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">SP</span>
-              </div>
-              <span className="font-semibold text-shortpoint-text-primary">
-                ShortPoint
-              </span>
-            </div>
+            <Link href="/dashboard" className="flex items-center">
+              <Image
+                src="/shortpoint-logo.svg"
+                alt="ShortPoint"
+                width={128}
+                height={22}
+                className="h-6 w-auto"
+                priority
+              />
+            </Link>
           )}
           <Button
             variant="ghost"
@@ -91,7 +94,7 @@ export function Sidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="p-4 space-y-2">
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navigationItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
@@ -100,7 +103,7 @@ export function Sidebar() {
               <Link key={item.id} href={item.href}>
                 <div
                   className={cn(
-                    "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                    "group flex items-center space-x-3 px-3 py-2.5 text-xs font-medium transition-all duration-200 relative",
                     isActive
                       ? "bg-shortpoint-light text-shortpoint-primary"
                       : "text-shortpoint-secondary hover:bg-shortpoint-light/50 hover:text-shortpoint-primary"
@@ -108,13 +111,35 @@ export function Sidebar() {
                 >
                   <Icon className="h-4 w-4 flex-shrink-0" />
                   {!isCollapsed && (
-                    <span className="truncate">{item.label}</span>
+                    <span className="truncate leading-tight">{item.label}</span>
+                  )}
+
+                  {/* Active indicator */}
+                  {isActive && (
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-shortpoint-primary rounded-r-sm"></div>
+                  )}
+
+                  {/* Tooltip for collapsed state */}
+                  {isCollapsed && (
+                    <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                      {item.label}
+                    </div>
                   )}
                 </div>
               </Link>
             );
           })}
         </nav>
+
+        {/* Footer */}
+        <div className="mt-auto p-4 border-t border-shortpoint-border-light">
+          {!isCollapsed && (
+            <div className="text-xs text-shortpoint-text-subtle">
+              <p className="font-medium">ShortPoint Standalone</p>
+              <p>v1.0.0</p>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Mobile Menu Button */}

@@ -6,6 +6,30 @@
 @theme {
   --font-sans: "Inter", "Geist", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* ShortPoint Design System Colors */
+  --color-shortpoint-primary: #3161d1;
+  --color-shortpoint-secondary: #5774a8;
+  --color-shortpoint-light: #e7f5ff;
+  --color-shortpoint-border: #deefff;
+  --color-shortpoint-main-bg: #f5f6fa;
+  --color-shortpoint-text-primary: #202224;
+  --color-shortpoint-text-subtle: #5774a8;
+  --color-shortpoint-text-brand: #3161d1;
+  --color-shortpoint-text-neutral: #607cad;
+  --color-shortpoint-text-placeholder: #adb5bd;
+  --color-shortpoint-border-light: #eaeaea;
+
+  /* Font sizes */
+  --font-size-xs: 14px;
+  --font-size-sm: 16px;
+  --font-size-md: 18px;
+  --font-size-lg: 32px;
+
+  /* Line heights */
+  --line-height-tight: 16px;
+  --line-height-normal: 18px;
+  --line-height-relaxed: 42px;
 }
 
 html,

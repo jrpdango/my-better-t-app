@@ -36,7 +36,7 @@ export function SiteCard({ site }: SiteCardProps) {
   const departmentIcon =
     departmentIcons[site.department as keyof typeof departmentIcons] || "🌐";
 
-  const siteUrl = `https://${site.slug}.acme-corp.com`;
+  const siteUrl = `https://${site.slug}.yourcompany.com`;
 
   // Format last activity date
   const lastActivity = new Date(site.lastActivity);
@@ -48,7 +48,7 @@ export function SiteCard({ site }: SiteCardProps) {
     diffHours < 24 ? `${diffHours}h ago` : `${Math.floor(diffHours / 24)}d ago`;
 
   return (
-    <Link href={`/s/${site.slug}`}>
+    <Link href={`/sites/${site.id}`}>
       <Card className="group hover:shadow-xl hover:shadow-shortpoint-light/25 transition-all duration-300 bg-white border border-shortpoint-border-light overflow-hidden cursor-pointer h-full">
         <CardContent className="p-0 h-[320px] flex flex-col">
           {/* Header Section with Status */}
@@ -65,9 +65,6 @@ export function SiteCard({ site }: SiteCardProps) {
                 {site.status === "active" ? "Active" : "Inactive"}
               </div>
               <ExternalLink className="h-4 w-4 text-shortpoint-text-subtle opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
-            <div className="text-xs text-shortpoint-text-subtle opacity-0 group-hover:opacity-100 transition-opacity">
-              View Site
             </div>
           </div>
 

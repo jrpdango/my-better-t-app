@@ -1,0 +1,32 @@
+[
+  {
+    "name": "ShortPoint",
+    "slug": "shortpoint",
+    "industry": "Software",
+    "website": "https://shortpoint.com"
+  },
+  {
+    "name": "Acme Corporation",
+    "slug": "acme-corp",
+    "industry": "Manufacturing",
+    "website": "https://acme.com"
+  },
+  {
+    "name": "TechFlow Solutions",
+    "slug": "techflow-solutions",
+    "industry": "Technology",
+    "website": "https://techflow.io"
+  },
+  {
+    "name": "GlobalTrade Inc",
+    "slug": "globaltrade-inc",
+    "industry": "Trading",
+    "website": "https://globaltrade.com"
+  },
+  {
+    "name": "HealthFirst Medical",
+    "slug": "healthfirst-medical",
+    "industry": "Healthcare",
+    "website": "https://healthfirst.med"
+  }
+]

@@ -4,7 +4,7 @@ import {
   PageStatus,
   LicenseType,
   SiteUserRole,
-} from "../generated";
+} from "./generated";
 import { readFileSync } from "fs";
 import { join } from "path";
 

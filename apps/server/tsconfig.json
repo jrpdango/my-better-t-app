@@ -12,18 +12,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-	  "composite": true,
+    "composite": true,
     "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
-	"paths": {
-		"@/*": ["./src/*"]
-		,
-		"prisma": ["node_modules/prisma"]
-	},
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "prisma": ["./prisma/generated"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

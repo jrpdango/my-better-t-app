@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SidebarUserProfile } from "@/components/features/auth/sidebar-user-profile";
 
 const navigationItems = [
   {
@@ -131,8 +132,15 @@ export function Sidebar() {
           })}
         </nav>
 
+        {/* User Profile */}
+        <div className="mt-auto border-t border-shortpoint-border-light">
+          <div className="p-4">
+            <SidebarUserProfile isCollapsed={isCollapsed} />
+          </div>
+        </div>
+
         {/* Footer */}
-        <div className="mt-auto p-4 border-t border-shortpoint-border-light">
+        <div className="p-4 border-t border-shortpoint-border-light">
           {!isCollapsed && (
             <div className="text-xs text-shortpoint-text-subtle">
               <p className="font-medium">ShortPoint Standalone</p>

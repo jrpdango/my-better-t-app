@@ -8,13 +8,13 @@ import { mockSites } from "@/lib/mock-data";
 
 interface SiteLayoutProps {
   children: ReactNode;
-  siteId: string;
+  siteId?: string;
 }
 
 export function SiteLayout({ children, siteId }: SiteLayoutProps) {
-  const site = mockSites.find((s) => s.id === siteId);
+  const site = siteId ? mockSites.find((s) => s.id === siteId) : null;
 
-  if (!site) {
+  if (siteId && !site) {
     return <div>Site not found</div>;
   }
 
@@ -22,15 +22,15 @@ export function SiteLayout({ children, siteId }: SiteLayoutProps) {
     <div className="min-h-screen bg-shortpoint-main-bg">
       <div className="flex">
         {/* Fixed Left Sidebar */}
-        <SiteSidebar siteId={siteId} />
+        {siteId && <SiteSidebar siteId={siteId} />}
 
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-w-0">
           {/* Header */}
-          <SiteHeader site={site} />
+          {site && <SiteHeader site={site} />}
 
           {/* Site Navigation Bar */}
-          <SiteNavigation siteId={siteId} />
+          {siteId && <SiteNavigation siteId={siteId} />}
 
           {/* Content */}
           <main className="flex-1 p-6">{children}</main>

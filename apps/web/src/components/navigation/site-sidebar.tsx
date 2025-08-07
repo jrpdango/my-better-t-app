@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
   Navigation,
   FileText,
-  Image,
+  Image as ImageIcon,
   Users,
   Palette,
   Settings,
@@ -39,7 +40,7 @@ const navigationItems = [
     id: "assets",
     label: "Assets Library",
     href: "/assets",
-    icon: Image,
+    icon: ImageIcon,
   },
   {
     id: "team",
@@ -79,23 +80,24 @@ export function SiteSidebar({ siteId }: SiteSidebarProps) {
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed lg:relative z-50 h-screen bg-white border-r border-shortpoint-border-light transition-all duration-300",
+          "fixed lg:relative z-50 h-screen bg-white border-r border-[#eaeaea] transition-all duration-300",
           isCollapsed
             ? "-translate-x-full lg:translate-x-0 lg:w-16"
             : "w-[230px]"
         )}
       >
         {/* Logo Section */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-shortpoint-border-light">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-[#eaeaea]">
           {!isCollapsed && (
-            <div className="flex items-center space-x-2">
-              <Link href="/dashboard" className="flex items-center space-x-2">
-                <ArrowLeft className="h-4 w-4 text-shortpoint-text-subtle" />
-                <span className="text-sm text-shortpoint-text-subtle">
-                  Back to Dashboard
-                </span>
-              </Link>
-            </div>
+            <Link href="/dashboard" className="flex items-center">
+              <Image
+                src="/shortpoint-logo.svg"
+                alt="ShortPoint"
+                width={160}
+                height={32}
+                className="h-8 w-auto"
+              />
+            </Link>
           )}
           <Button
             variant="ghost"
@@ -111,20 +113,36 @@ export function SiteSidebar({ siteId }: SiteSidebarProps) {
           </Button>
         </div>
 
+        {/* Back to Dashboard Link */}
+        {!isCollapsed && (
+          <div className="px-4 py-2 border-b border-[#eaeaea]">
+            <Link
+              href="/dashboard"
+              className="flex items-center space-x-2 text-xs text-[#5774A8] hover:text-[#3161D1] transition-colors font-inter leading-[14px]"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>Back to Dashboard</span>
+            </Link>
+          </div>
+        )}
+
         {/* Site Info */}
         {!isCollapsed && site && (
-          <div className="p-4 border-b border-shortpoint-border-light">
-            <h2 className="font-semibold text-shortpoint-text-primary">
+          <div className="p-4 border-b border-[#eaeaea]">
+            <h2 className="font-medium text-[#202224] text-xs font-inter leading-[14px]">
               {site.name}
             </h2>
-            <p className="text-xs text-shortpoint-text-subtle">
-              {site.department}
+            <p className="text-xs text-[#5774A8] font-inter leading-[14px]">
+              {site.department} Department • Management View
             </p>
           </div>
         )}
 
         {/* Navigation */}
-        <nav className="p-4 space-y-2">
+        <nav className="p-4 space-y-0">
+          <div className="text-xs font-medium text-[#5774A8] uppercase tracking-wider mb-3 font-inter leading-[14px]">
+            Site Management
+          </div>
           {navigationItems.map((item) => {
             const fullHref = `/sites/${siteId}${item.href}`;
             const isActive = pathname === fullHref;
@@ -134,10 +152,10 @@ export function SiteSidebar({ siteId }: SiteSidebarProps) {
               <Link key={item.id} href={fullHref}>
                 <div
                   className={cn(
-                    "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                    "flex items-center space-x-3 px-3 py-2 text-xs font-medium font-inter leading-[14px] transition-colors",
                     isActive
-                      ? "bg-shortpoint-light text-shortpoint-primary"
-                      : "text-shortpoint-secondary hover:bg-shortpoint-light/50 hover:text-shortpoint-primary"
+                      ? "bg-[#E7F5FF] text-[#3161D1]"
+                      : "text-[#5774A8] hover:bg-[#E7F5FF]/50 hover:text-[#3161D1]"
                   )}
                 >
                   <Icon className="h-4 w-4 flex-shrink-0" />

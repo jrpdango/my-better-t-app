@@ -48,7 +48,7 @@ export function SiteCard({ site }: SiteCardProps) {
     diffHours < 24 ? `${diffHours}h ago` : `${Math.floor(diffHours / 24)}d ago`;
 
   return (
-    <Link href={`/sites/${site.id}`}>
+    <Link href={`/s/${site.slug}`}>
       <Card className="group hover:shadow-xl hover:shadow-shortpoint-light/25 transition-all duration-300 bg-white border border-shortpoint-border-light overflow-hidden cursor-pointer h-full">
         <CardContent className="p-0 h-[320px] flex flex-col">
           {/* Header Section with Status */}

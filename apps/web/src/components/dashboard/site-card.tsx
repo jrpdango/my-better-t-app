@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { Site } from "@/lib/mock-data";
+import type { Site } from "@/types/api";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Clock, Users, ExternalLink } from "lucide-react";

@@ -3,16 +3,30 @@
 import { SiteCard } from "@/components/dashboard/site-card";
 import { Button } from "@/components/ui/button";
 import { Plus, Building2, Users } from "lucide-react";
-import { mockSites } from "@/lib/mock-data";
 import { useUser } from "@clerk/nextjs";
+import { useSites, useTenant } from "@/hooks/use-api";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardPage() {
   const { user } = useUser();
 
-  const activeSites = mockSites.filter(
-    (site) => site.status === "active"
+  // For now, we'll use a default tenant. In a real app, you'd determine this from user domain/organization
+  const companySlug = "shortpoint"; // This should come from user's email domain or organization
+
+  const { data: tenantData, isLoading: tenantLoading } = useTenant(
+    companySlug,
+    !!user
+  );
+  const { data: sitesData, isLoading: sitesLoading } = useSites(
+    tenantData?.tenant?.id || "",
+    !!tenantData?.tenant?.id
+  );
+
+  const sites = sitesData?.sites || [];
+  const activeSites = sites.filter(
+    (site: any) => site.status === "active"
   ).length;
-  const totalSites = mockSites.length;
+  const totalSites = sites.length;
 
   return (
     <div className="space-y-8">
@@ -72,7 +86,7 @@ export default function DashboardPage() {
             <div>
               <p className="text-sm text-shortpoint-text-subtle">Departments</p>
               <p className="text-2xl font-semibold text-shortpoint-text-primary">
-                {new Set(mockSites.map((site) => site.department)).size}
+                {new Set(sites.map((site: any) => site.department)).size}
               </p>
             </div>
             <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -89,19 +103,24 @@ export default function DashboardPage() {
             All Sites
           </h2>
           <div className="text-sm text-shortpoint-text-subtle">
-            {mockSites.length} sites total
+            {sites.length} sites total
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {mockSites.map((site) => (
-            <SiteCard key={site.id} site={site} />
-          ))}
+          {sitesLoading
+            ? // Loading skeleton
+              Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="h-[320px] rounded-lg">
+                  <Skeleton className="w-full h-full" />
+                </div>
+              ))
+            : sites.map((site: any) => <SiteCard key={site.id} site={site} />)}
         </div>
       </div>
 
       {/* Empty State for when no sites exist */}
-      {mockSites.length === 0 && (
+      {!sitesLoading && sites.length === 0 && (
         <div className="text-center py-12">
           <Building2 className="h-12 w-12 text-shortpoint-text-subtle mx-auto mb-4" />
           <h3 className="text-lg font-medium text-shortpoint-text-primary mb-2">
